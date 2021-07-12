@@ -1,25 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+import Title from './components/Title';
+import Emojis from './components/Emojis';
+import MovieSearch from './components/MovieSearch';
+import { useState } from 'react'
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  let movies = [
+    { name: 'Joker', emojis: '😖🤡🔫' },
+    { name: 'Gremlins', emojis: '🐼🍔🕐👹' },
+    { name: 'Batman', emojis: '🤵🏾🦇' },
+  ];
+
+  let index = 0;
+  const [movie, setMovie] = useState(movies[index]);
+  const [movieName, setMovieName] = useState('');
+
+  const handleSearch = () => {
+    if (movieName.toLowerCase() !== movie.name.toLowerCase()) {
+      return;
+    }
+    setMovieName('');
+    setMovie(movies[index + 1]);
+  }
+
+  const handleMovieChanged = (movieName) => {
+    setMovieName(movieName);
+  }
+
+  return (<div className="App">
+    <Title text="Guess the movie" />
+    <Emojis movieEmoji={movie.emojis}></Emojis>
+    <MovieSearch 
+      handleSearch={handleSearch} 
+      handleMovieChanged={handleMovieChanged} 
+      movieName={movieName}>
+    </MovieSearch>
+  </div>);
 }
 
 export default App;
