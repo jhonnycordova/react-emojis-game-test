@@ -9,6 +9,7 @@ function App() {
     { name: "Joker", emojis: "😖🤡🔫" },
     { name: "Gremlins", emojis: "🐼🍔🕐👹" },
     { name: "Batman", emojis: "🤵🏾🦇" },
+    { name: "Beauty and the Beast", emojis: "👸🥀👹" },
   ];
 
   let [index, setIndex] = useState(0);
