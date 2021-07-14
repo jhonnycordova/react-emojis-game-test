@@ -4,39 +4,39 @@ import Emojis from "./components/Emojis";
 import MovieSearch from "./components/MovieSearch";
 import { useState } from "react";
 
-function App() {
-  let movies = [
-    { name: "Joker", emojis: "😖🤡🔫" },
-    { name: "Gremlins", emojis: "🐼🍔🕐👹" },
-    { name: "Batman", emojis: "🤵🏾🦇" },
-    { name: "Beauty and the Beast", emojis: "👸🥀👹" },
-  ];
+const movies = [
+  { name: "Joker", emojis: "😖🤡🔫" },
+  { name: "Gremlins", emojis: "🐼🍔🕐👹" },
+  { name: "Batman", emojis: "🤵🏾🦇" },
+  { name: "Beauty and the Beast", emojis: "👸🥀👹" },
+];
 
-  let [index, setIndex] = useState(0);
-  const [movie, setMovie] = useState(movies[index]);
-  const [movieName, setMovieName] = useState("");
+function App() {
+  const [round, setRound] = useState(0);
+  const [currentMovie, setCurrentMovie] = useState(movies[round]);
+  const [userGuess, setUserGuess] = useState("");
 
   const handleSearch = () => {
-    if (movieName.toLowerCase() !== movie?.name.toLowerCase()) {
+    if (userGuess.toLowerCase() !== currentMovie?.name.toLowerCase()) {
       return;
     }
-    setMovieName("");
-    setIndex(++index);
-    setMovie(movies[index]);
+    setUserGuess("");
+    setRound((currentRound) => ++currentRound);
+    setCurrentMovie(movies[round]);
   };
 
-  const handleMovieChanged = (movieName) => {
-    setMovieName(movieName);
+  const handleUserGuessChanged = (userGuess) => {
+    setUserGuess(userGuess);
   };
 
   return (
     <div className="App">
       <Title text="Guess the movie" />
-      <Emojis movieEmoji={movie?.emojis}></Emojis>
+      <Emojis movieEmoji={currentMovie?.emojis}></Emojis>
       <MovieSearch
         handleSearch={handleSearch}
-        handleMovieChanged={handleMovieChanged}
-        movieName={movieName}
+        handleUserGuessChanged={handleUserGuessChanged}
+        userGuess={userGuess}
       ></MovieSearch>
     </div>
   );
